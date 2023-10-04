@@ -10,8 +10,11 @@ async function getData() {
 
     pic.src = data.sprites.front_default;
     name.innerText = data.name;
-    stats.innerText = getInfo(data);
-
+    if(infoButton.value === "ON") {
+        stats.innerText = getInfo(data);
+    } else {
+        stats.innerText = getMoves(data);
+    }   
 }
 
 function moveLeft() {
@@ -27,6 +30,8 @@ function moveRight() {
 }
 
 function getInfo(data) {
+    const statsTitle = document.getElementById("stats-title");
+    statsTitle.innerText = "Info";
     return `
         height: ${data.height / 10}m
         weight: ${data.weight / 10}kg
@@ -40,11 +45,13 @@ function getInfo(data) {
 }
 
 function getMoves(data) {
-    let moves = "";
-    for(let i = 0; i < data.length && i < 10; i++) {
-        moves += moves[i].move.name + "\n";
+    const statsTitle = document.getElementById("stats-title");
+    statsTitle.innerText = "Moves";
+    let movesString = "";
+    for(let i = 0; i < data.moves.length && i < 10; i++) {
+        movesString += data.moves[i].move.name + "\n";
     }
-    return moves;
+    return movesString;
 }
 
 const leftButton = document.getElementById("left");
@@ -74,7 +81,7 @@ infoButton.value = "ON";
 moveButton.value = "OFF";
 
 async function toggleInfo() {
-    if(infoButton.value == "OFF") {
+    if(infoButton.value === "OFF") {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${ID}`);
         const data = await response.json();
         const stats = document.getElementById("stats");
@@ -85,7 +92,7 @@ async function toggleInfo() {
 }
 
 async function toggleMove() {
-    if(moveButton.value == "OFF") {
+    if(moveButton.value === "OFF") {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${ID}`);
         const data = await response.json();
         const stats = document.getElementById("stats");
@@ -94,6 +101,5 @@ async function toggleMove() {
         stats.innerText = getMoves(data);
     }
 }
-
 
 getData();
