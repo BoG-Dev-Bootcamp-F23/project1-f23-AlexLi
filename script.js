@@ -67,25 +67,23 @@ function setTypes(data) {
 function getInfo(data) {
     const statsTitle = document.getElementById("stats-title");
     statsTitle.innerText = "Info";
-    infoButton.style.backgroundColor = "#39ed5d";
+    infoButton.style.backgroundColor = "#7CFF79";
     moveButton.style.backgroundColor = "#E8E8E8";
-    return `
-        height: ${data.height / 10}m
-        weight: ${data.weight / 10}kg
-        hp: ${data.stats[0].base_stat}
-        attack: ${data.stats[1].base_stat}
-        defense: ${data.stats[2].base_stat}
-        special-attack: ${data.stats[3].base_stat}
-        special-defense: ${data.stats[4].base_stat}
-        speed: ${data.stats[5].base_stat}
-    `;
+    return `height: ${data.height / 10}m
+            weight: ${data.weight / 10}kg
+            hp: ${data.stats[0].base_stat}
+            attack: ${data.stats[1].base_stat}
+            defense: ${data.stats[2].base_stat}
+            special-attack: ${data.stats[3].base_stat}
+            special-defense: ${data.stats[4].base_stat}
+            speed: ${data.stats[5].base_stat}`;
 }
 
 function getMoves(data) {
     const statsTitle = document.getElementById("stats-title");
     statsTitle.innerText = "Moves";
     infoButton.style.backgroundColor = "#E8E8E8";
-    moveButton.style.backgroundColor = "#39ed5d";
+    moveButton.style.backgroundColor = "#7CFF79";
     let movesString = "";
     for(let i = 0; i < data.moves.length && i < 10; i++) {
         movesString += data.moves[i].move.name + "\n";
