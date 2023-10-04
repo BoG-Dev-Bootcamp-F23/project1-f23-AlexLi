@@ -70,10 +70,14 @@ rightButton.addEventListener("click", (event) => {
 });
 
 infoButton.addEventListener("click", (event) => {
+    infoButton.style.backgroundColor = "#39ed5d";
+    moveButton.style.backgroundColor = "#d2d4d3";
     toggleInfo();
 });
 
 moveButton.addEventListener("click", (event) => {
+    infoButton.style.backgroundColor = "#d2d4d3";
+    moveButton.style.backgroundColor = "#39ed5d";
     toggleMove();
 });
 
