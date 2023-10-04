@@ -15,6 +15,7 @@ async function getData() {
     } else {
         stats.innerText = getMoves(data);
     }   
+    setTypes(data);
 }
 
 function moveLeft() {
@@ -27,31 +28,6 @@ function moveRight() {
     if(ID <= 1000) {
         ID++;
     }
-}
-
-function getInfo(data) {
-    const statsTitle = document.getElementById("stats-title");
-    statsTitle.innerText = "Info";
-    return `
-        height: ${data.height / 10}m
-        weight: ${data.weight / 10}kg
-        hp: ${data.stats[0].base_stat}
-        attack: ${data.stats[1].base_stat}
-        defense: ${data.stats[2].base_stat}
-        special-attack: ${data.stats[3].base_stat}
-        special-defense: ${data.stats[4].base_stat}
-        speed: ${data.stats[5].base_stat}
-    `;
-}
-
-function getMoves(data) {
-    const statsTitle = document.getElementById("stats-title");
-    statsTitle.innerText = "Moves";
-    let movesString = "";
-    for(let i = 0; i < data.moves.length && i < 10; i++) {
-        movesString += data.moves[i].move.name + "\n";
-    }
-    return movesString;
 }
 
 const leftButton = document.getElementById("left");
@@ -70,19 +46,52 @@ rightButton.addEventListener("click", (event) => {
 });
 
 infoButton.addEventListener("click", (event) => {
-    infoButton.style.backgroundColor = "#39ed5d";
-    moveButton.style.backgroundColor = "#E8E8E8";
     toggleInfo();
 });
 
 moveButton.addEventListener("click", (event) => {
-    infoButton.style.backgroundColor = "#E8E8E8";
-    moveButton.style.backgroundColor = "#39ed5d";
     toggleMove();
 });
 
 infoButton.value = "ON";
 moveButton.value = "OFF";
+
+function setTypes(data) {
+    const typesContainer = document.getElementById("types-container");
+    let typesHTML = "";
+    data.types.forEach(t => {
+        typesHTML += `<p id="${t.type.name}">${t.type.name}</p>\n`;
+    });
+    typesContainer.innerHTML = typesHTML;
+}
+function getInfo(data) {
+    const statsTitle = document.getElementById("stats-title");
+    statsTitle.innerText = "Info";
+    infoButton.style.backgroundColor = "#39ed5d";
+    moveButton.style.backgroundColor = "#E8E8E8";
+    return `
+        height: ${data.height / 10}m
+        weight: ${data.weight / 10}kg
+        hp: ${data.stats[0].base_stat}
+        attack: ${data.stats[1].base_stat}
+        defense: ${data.stats[2].base_stat}
+        special-attack: ${data.stats[3].base_stat}
+        special-defense: ${data.stats[4].base_stat}
+        speed: ${data.stats[5].base_stat}
+    `;
+}
+
+function getMoves(data) {
+    const statsTitle = document.getElementById("stats-title");
+    statsTitle.innerText = "Moves";
+    infoButton.style.backgroundColor = "#E8E8E8";
+    moveButton.style.backgroundColor = "#39ed5d";
+    let movesString = "";
+    for(let i = 0; i < data.moves.length && i < 10; i++) {
+        movesString += data.moves[i].move.name + "\n";
+    }
+    return movesString;
+}
 
 async function toggleInfo() {
     if(infoButton.value === "OFF") {
