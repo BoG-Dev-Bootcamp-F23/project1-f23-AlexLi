@@ -56,7 +56,8 @@ button {
 #stats {
     height: 350px;
     width: 300px;
-    padding: 20px;
+    padding-left: 40px;
+    padding-top: 40px;
     background-color: #E8E8E8;
 }
 
